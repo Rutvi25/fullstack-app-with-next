@@ -1,5 +1,5 @@
 import { Box, Flex, Text } from "@chakra-ui/layout";
-import { color, Image } from "@chakra-ui/react";
+import { Image } from "@chakra-ui/react";
 
 const GradientLayout = ({
   color,
