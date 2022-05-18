@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { ChakraProvider } from "@chakra-ui/provider";
-import { StoreProvider } from "easy-peasy";
+import { StoreProvider, useStoreRehydrated } from "easy-peasy";
 import { extendTheme } from "@chakra-ui/react";
 import "reset-css";
 
@@ -35,17 +35,23 @@ const theme = extendTheme({
   },
 });
 
+const WaitForStateRehydration = ({ children }) => {
+  const isRehydrated = useStoreRehydrated();
+  return isRehydrated ? children : null;
+};
 const MyApp = ({ Component, pageProps }) => {
   return (
     <ChakraProvider theme={theme}>
       <StoreProvider store={store}>
-        {Component.authPage ? (
-          <Component {...pageProps} />
-        ) : (
-          <PlayerLayout>
+        <WaitForStateRehydration>
+          {Component.authPage ? (
             <Component {...pageProps} />
-          </PlayerLayout>
-        )}
+          ) : (
+            <PlayerLayout>
+              <Component {...pageProps} />
+            </PlayerLayout>
+          )}
+        </WaitForStateRehydration>
       </StoreProvider>
     </ChakraProvider>
   );

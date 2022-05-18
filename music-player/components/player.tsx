@@ -20,20 +20,31 @@ import {
   MdOutlinePauseCircleFilled,
   MdOutlineRepeat,
 } from "react-icons/md";
-import { useStoreActions } from "easy-peasy";
+import { useStoreActions, useStoreState } from "easy-peasy";
 import { formatTime } from "../lib/formatters";
 
 const Player = ({ songs, activeSong }) => {
-  const [playing, setPlaying] = useState(true);
-  const [index, setIndex] = useState(0);
-  const [seek, setSeek] = useState(0.0);
+  // const [playing, setPlaying] = useState(true);
+  const playing = useStoreState((state: any) => state.songStates.playing);
+  const setPlaying = useStoreActions((state: any) => state.changePlayState);
+  const setActiveSong = useStoreActions((state: any) => state.changeActiveSong);
+  const setRepeat = useStoreActions((state: any) => state.changeRepeat);
+  const repeat = useStoreState((state: any) => state.songStates.repeat);
+  const setShuffle = useStoreActions((state: any) => state.changeShuffle);
+  const shuffle = useStoreState((state: any) => state.songStates.shuffle);
+  const index = useStoreState((state: any) => state.songStates.index);
+  const prevSong = useStoreActions((state: any) => state.prevSong);
+  const nextSong = useStoreActions((state: any) => state.nextSong);
+  // const [index, setIndex] = useState(0);
+  // const [seek, setSeek] = useState(0.0);
+  const seek = useStoreState((state: any) => state.songStates.seek);
+  const setSeek = useStoreActions((state: any) => state.setSeek);
   const [isSeeking, setIsSeeking] = useState(false);
-  const [repeat, setRepeat] = useState(false);
-  const [shuffle, setShuffle] = useState(false);
+  // const [repeat, setRepeat] = useState(false);
+  // const [shuffle, setShuffle] = useState(false);
   const [duration, setDuration] = useState(0.0);
   const soundRef = useRef(null);
-  const repeatRef = useRef(repeat)
-  const setActiveSong = useStoreActions((state: any) => state.changeActiveSong);
+  const repeatRef = useRef(repeat);
 
   useEffect(() => {
     let timerId;
@@ -46,49 +57,49 @@ const Player = ({ songs, activeSong }) => {
       return () => cancelAnimationFrame(timerId);
     }
     cancelAnimationFrame(timerId);
-  }, [playing, isSeeking]);
+  }, [playing, isSeeking, setSeek]);
 
   useEffect(() => {
-    setActiveSong(songs[index])
+    setActiveSong(songs[index]);
   }, [index, setActiveSong, songs]);
 
   useEffect(() => {
-    repeatRef.current = repeat
-  }, [repeat])
+    repeatRef.current = repeat;
+  }, [repeat]);
 
   const setPlayState = (value) => {
     setPlaying(value);
   };
-  const onShuffle = () => {
-    setShuffle((state) => !state);
-  };
-  const onRepeat = () => {
-    setRepeat((state) => !state);
-  };
-  const prevSong = () => {
-    setIndex((state) => {
-      return state ? state - 1 : songs.length - 1;
-    });
-  };
-  const nextSong = () => {
-    setIndex((state: any) => {
-      if (shuffle) {
-        const next = Math.floor(Math.random() * songs.length);
-        if (next === state) {
-          return nextSong();
-        }
-        return next;
-      }
-      return state === songs.length - 1 ? 0 : state + 1;
-    });
-  };
+  // const onShuffle = () => {
+  //   setShuffle((state) => !state);
+  // };
+  // const onRepeat = () => {
+  //   setRepeat((state) => !state);
+  // };
+  // const prevSong = () => {
+  //   setIndex((state) => {
+  //     return state ? state - 1 : songs.length - 1;
+  //   });
+  // };
+  // const nextSong = () => {
+  //   setIndex((state: any) => {
+  //     if (shuffle) {
+  //       const next = Math.floor(Math.random() * songs.length);
+  //       if (next === state) {
+  //         return nextSong();
+  //       }
+  //       return next;
+  //     }
+  //     return state === songs.length - 1 ? 0 : state + 1;
+  //   });
+  // };
   const onEnd = () => {
     if (repeatRef.current) {
-      console.log("repeat")
+      console.log("repeat");
       setSeek(0);
       soundRef.current.seek(0);
     } else {
-      console.log("don't repeat")
+      console.log("don't repeat");
       nextSong();
     }
   };
@@ -120,7 +131,7 @@ const Player = ({ songs, activeSong }) => {
             aria-label="shuffle"
             fontSize="24px"
             color={shuffle ? "white" : "gray.600"}
-            onClick={onShuffle}
+            onClick={() => setShuffle()}
             icon={<MdShuffle />}
           />
           <IconButton
@@ -129,7 +140,7 @@ const Player = ({ songs, activeSong }) => {
             aria-label="skip"
             fontSize="24px"
             icon={<MdSkipPrevious />}
-            onClick={prevSong}
+            onClick={() => prevSong(index)}
           />
           {playing ? (
             <IconButton
@@ -158,14 +169,14 @@ const Player = ({ songs, activeSong }) => {
             aria-label="next"
             fontSize="24px"
             icon={<MdSkipNext />}
-            onClick={nextSong}
+            onClick={() => nextSong(index)}
           />
           <IconButton
             outline="none"
             variant="link"
             aria-label="repeat"
             color={repeat ? "white" : "gray.600"}
-            onClick={onRepeat}
+            onClick={() => setRepeat()}
             fontSize="24px"
             icon={<MdOutlineRepeat />}
           />
