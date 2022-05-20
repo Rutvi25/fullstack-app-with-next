@@ -1,7 +1,4 @@
-export const artistsData: {
-  name,
-  songs
-}[] = [
+export const artistsData = [
   {
     name: "Glitch",
     songs: [
