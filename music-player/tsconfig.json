@@ -25,7 +25,7 @@
     "**/*.ts",
     "**/*.tsx",
     "**/**/*.tsx"
-, "prisma/seed.ts"  ],
+, "prisma/seed.js", "components/player.jsx", "components/authForm.jsx", "components/gradientLayout.jsx", "components/playerBar.jsx", "components/playerLayout.jsx", "components/sidebar.jsx", "components/songsTable.jsx", "lib/auth.js", "lib/fetcher.js", "lib/formatters.js", "lib/hooks.js", "lib/mutations.js", "lib/prisma.js", "lib/store.js", "pages/api/me.js", "pages/api/playlist.js", "pages/api/signin.js", "pages/api/signup.js", "pages/playlist/[id].jsx", "pages/_app.jsx", "pages/_middleware.jsx", "pages/index.jsx", "pages/signin.jsx", "pages/signup.jsx", "prisma/songsData.js"  ],
   "exclude": [
     "node_modules"
   ]

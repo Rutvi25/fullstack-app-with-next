@@ -4,8 +4,8 @@ import { StoreProvider, useStoreRehydrated } from "easy-peasy";
 import { extendTheme } from "@chakra-ui/react";
 import "reset-css";
 
-import PlayerLayout from "../components/playerLayout";
-import { store } from "../lib/store";
+import PlayerLayout from "../components/playerLayout.jsx";
+import { store } from "../lib/store.js";
 
 const theme = extendTheme({
   colors: {

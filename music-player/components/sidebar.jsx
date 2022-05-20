@@ -16,7 +16,7 @@ import {
   MdPlaylistAdd,
   MdFavorite,
 } from "react-icons/md";
-import { usePlaylist } from "../lib/hooks";
+import { usePlaylist } from "../lib/hooks.js";
 
 const navMenu = [
   {
@@ -48,8 +48,6 @@ const musicMenu = [
     route: "/favorites",
   },
 ];
-
-// const playlists = new Array(30).fill(1).map((_, i) => `Playlist ${i + 1}`);
 
 const Sidebar = () => {
   const { playlists } = usePlaylist();

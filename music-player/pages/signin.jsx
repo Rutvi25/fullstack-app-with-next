@@ -1,4 +1,4 @@
-import AuthForm from "../components/authForm";
+import AuthForm from "../components/authForm.jsx";
 
 const Signin = () => {
   return <AuthForm mode="signin" />;

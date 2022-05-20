@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-import { artistsData } from "./songsData";
+import { artistsData } from "./songsData.js";
 
 const prisma = new PrismaClient();
 

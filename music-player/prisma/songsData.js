@@ -1,6 +1,6 @@
 export const artistsData: {
-  name: string;
-  songs: any[];
+  name,
+  songs
 }[] = [
   {
     name: "Glitch",

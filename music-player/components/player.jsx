@@ -21,24 +21,24 @@ import {
   MdOutlineRepeat,
 } from "react-icons/md";
 import { useStoreActions, useStoreState } from "easy-peasy";
-import { formatTime } from "../lib/formatters";
+import { formatTime } from "../lib/formatters.js";
 
 const Player = ({ songs, activeSong }) => {
   // const [playing, setPlaying] = useState(true);
-  const playing = useStoreState((state: any) => state.songStates.playing);
-  const setPlaying = useStoreActions((state: any) => state.changePlayState);
-  const setActiveSong = useStoreActions((state: any) => state.changeActiveSong);
-  const setRepeat = useStoreActions((state: any) => state.changeRepeat);
-  const repeat = useStoreState((state: any) => state.songStates.repeat);
-  const setShuffle = useStoreActions((state: any) => state.changeShuffle);
-  const shuffle = useStoreState((state: any) => state.songStates.shuffle);
-  const index = useStoreState((state: any) => state.songStates.index);
-  const prevSong = useStoreActions((state: any) => state.prevSong);
-  const nextSong = useStoreActions((state: any) => state.nextSong);
+  const playing = useStoreState((state) => state.songStates.playing);
+  const setPlaying = useStoreActions((state) => state.changePlayState);
+  const setActiveSong = useStoreActions((state) => state.changeActiveSong);
+  const setRepeat = useStoreActions((state) => state.changeRepeat);
+  const repeat = useStoreState((state) => state.songStates.repeat);
+  const setShuffle = useStoreActions((state) => state.changeShuffle);
+  const shuffle = useStoreState((state) => state.songStates.shuffle);
+  const index = useStoreState((state) => state.songStates.index);
+  const prevSong = useStoreActions((state) => state.prevSong);
+  const nextSong = useStoreActions((state) => state.nextSong);
   // const [index, setIndex] = useState(0);
   // const [seek, setSeek] = useState(0.0);
-  const seek = useStoreState((state: any) => state.songStates.seek);
-  const setSeek = useStoreActions((state: any) => state.setSeek);
+  const seek = useStoreState((state) => state.songStates.seek);
+  const setSeek = useStoreActions((state) => state.setSeek);
   const [isSeeking, setIsSeeking] = useState(false);
   // const [repeat, setRepeat] = useState(false);
   // const [shuffle, setShuffle] = useState(false);
@@ -194,7 +194,7 @@ const Player = ({ songs, activeSong }) => {
               step={0.1}
               min={0}
               id="player-range"
-              max={duration ? (duration.toFixed(2) as unknown as number) : 0}
+              max={duration ? duration.toFixed(2) : 0}
               onChange={onSeek}
               value={[seek]}
               onChangeStart={() => setIsSeeking(true)}
