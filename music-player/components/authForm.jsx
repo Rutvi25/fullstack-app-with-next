@@ -4,18 +4,20 @@ import { useState } from "react";
 // import { useSWRConfig } from "swr";
 import NextImage from "next/image";
 
-import { auth } from "../lib/mutations";
+import { auth } from "../lib/mutations.js";
 
-const AuthForm = ({ mode }) => {
+const AuthForm = ({ mode, option }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setfirstName] = useState("");
+  const [lastName, setlastName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    await auth(mode, { email, password });
+    await auth(mode, { email, password, firstName, lastName });
     setIsLoading(false);
     router.push("/");
   };
@@ -33,12 +35,30 @@ const AuthForm = ({ mode }) => {
       <Flex justify="center" align="center" height="calc(100vh - 100px)">
         <Box padding="50px" bg="gray.900" borderRadius="6px">
           <form onSubmit={handleSubmit}>
+            {mode === "signup" && (
+              <>
+                <Input
+                  required
+                  placeholder="firstName"
+                  type="text"
+                  onChange={(e) => setfirstName(e.target.value)}
+                />
+                <Input
+                  required
+                  placeholder="lastName"
+                  type="text"
+                  onChange={(e) => setlastName(e.target.value)}
+                />
+              </>
+            )}
             <Input
+              required
               placeholder="email"
               type="email"
               onChange={(e) => setEmail(e.target.value)}
             />
             <Input
+              required
               placeholder="password"
               type="password"
               onChange={(e) => setPassword(e.target.value)}
@@ -54,6 +74,9 @@ const AuthForm = ({ mode }) => {
               }}
             >
               {mode}
+            </Button>
+            <Button bg="transparent" onClick={() => router.push(`/${option}`)}>
+              {option}
             </Button>
           </form>
         </Box>

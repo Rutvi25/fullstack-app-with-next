@@ -1,12 +1,11 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import cookie from "cookie";
-// import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../lib/prisma.js";
 
 export default async (req, res) => {
   const salt = bcrypt.genSaltSync();
-  const { email, password } = req.body;
+  const { email, password, firstName, lastName } = req.body;
 
   let user;
 
@@ -15,8 +14,8 @@ export default async (req, res) => {
       data: {
         email,
         password: bcrypt.hashSync(password, salt),
-        firstName: "",
-        lastName: "",
+        firstName,
+        lastName,
       },
     });
   } catch (e) {
@@ -38,11 +37,9 @@ export default async (req, res) => {
   res.setHeader(
     "Set-Cookie",
     cookie.serialize("TRAX_ACCESS_TOKEN", token, {
-      httpOnly: true,
       maxAge: 8 * 60 * 60,
       path: "/",
       sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
     })
   );
 

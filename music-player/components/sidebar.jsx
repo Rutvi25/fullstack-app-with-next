@@ -1,5 +1,8 @@
 import NextImage from "next/image";
 import NextLink from "next/link";
+import { getCookies, removeCookies } from "cookies-next";
+import Router from "next/router";
+
 import {
   Box,
   List,
@@ -16,6 +19,7 @@ import {
   MdPlaylistAdd,
   MdFavorite,
 } from "react-icons/md";
+import { Button } from "@chakra-ui/react";
 import { usePlaylist } from "../lib/hooks.js";
 
 const navMenu = [
@@ -51,6 +55,12 @@ const musicMenu = [
 
 const Sidebar = () => {
   const { playlists } = usePlaylist();
+  const handleLogout = () => {
+    console.log("logout");
+    console.log(getCookies({ domain: "localhost", path: "/" }));
+    removeCookies("TRAX_ACCESS_TOKEN");
+    Router.reload();
+  };
   return (
     <Box
       width="100%"
@@ -63,6 +73,13 @@ const Sidebar = () => {
         <Box width="120px" marginBottom="20px" paddingX="20px">
           <NextImage src="/logo.svg" height={60} width={120} />
         </Box>
+        <Button
+          bg="transparent"
+          marginBottom="20px"
+          onClick={() => handleLogout()}
+        >
+          Logout
+        </Button>
         <Box marginBottom="20px">
           <List spacing={2}>
             {navMenu.map((menu) => (
@@ -105,7 +122,7 @@ const Sidebar = () => {
         </Box>
         <Divider color="gray.800" />
         <Box
-          height="66%"
+          height="55%"
           overflowY="auto"
           paddingY="20px"
           css={{
@@ -136,5 +153,4 @@ const Sidebar = () => {
     </Box>
   );
 };
-
 export default Sidebar;

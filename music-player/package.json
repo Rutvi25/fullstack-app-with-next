@@ -18,6 +18,7 @@
     "bcrypt": "^5.0.1",
     "cookie": "^0.4.1",
     "cookies": "^0.8.0",
+    "cookies-next": "^2.0.4",
     "easy-peasy": "^5.0.4",
     "format-duration": "^1.4.0",
     "framer-motion": "^6.3.3",
