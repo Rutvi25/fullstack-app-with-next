@@ -20,7 +20,7 @@ import {
   MdFavorite,
 } from "react-icons/md";
 import { Button } from "@chakra-ui/react";
-import { usePlaylist } from "../lib/hooks.js";
+import { usePlaylist } from "../lib/hooks";
 
 const navMenu = [
   {
@@ -132,6 +132,7 @@ const Sidebar = () => {
           }}
         >
           <List spacing={2}>
+          {console.log(playlists)}
             {playlists?.map((playlist) => (
               <ListItem paddingX="20px" key={playlist.id}>
                 <LinkBox>

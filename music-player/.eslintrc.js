@@ -14,6 +14,18 @@ module.exports = {
     ecmaVersion: 13,
     sourceType: "module",
   },
+  globals: {
+    React: true,
+    google: true,
+    mount: true,
+    mountWithRouter: true,
+    shallow: true,
+    shallowWithRouter: true,
+    context: true,
+    expect: true,
+    jsdom: true,
+    JSX: true,
+  },
   rules: {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",

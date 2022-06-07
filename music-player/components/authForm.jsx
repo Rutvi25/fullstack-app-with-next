@@ -4,7 +4,7 @@ import { useState } from "react";
 // import { useSWRConfig } from "swr";
 import NextImage from "next/image";
 
-import { auth } from "../lib/mutations.js";
+import { auth } from "../lib/mutations";
 
 const AuthForm = ({ mode, option }) => {
   const [email, setEmail] = useState("");

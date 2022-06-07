@@ -4,7 +4,7 @@ import { artistsData } from "./songsData.js";
 
 const prisma = new PrismaClient();
 
-const run = async () => {
+const run = async (): Promise<void> => {
   await Promise.all(
     artistsData.map(async (artist) => {
       return prisma.artist.upsert({

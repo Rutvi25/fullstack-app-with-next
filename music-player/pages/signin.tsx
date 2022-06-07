@@ -1,6 +1,6 @@
 import AuthForm from "../components/authForm.jsx";
 
-const Signin = () => {
+const Signin = (): JSX.Element => {
   return <AuthForm mode="signin" option="signup" />;
 };
 

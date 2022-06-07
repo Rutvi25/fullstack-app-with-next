@@ -1,9 +1,10 @@
+import { GetServerSideProps } from "next";
 import GradientLayout from "../../components/gradientLayout.jsx";
 import SongsTable from "../../components/songsTable.jsx";
 import { validateToken } from "../../lib/auth.js";
-import prisma from "../../lib/prisma.js";
+import prisma from "../../lib/prisma";
 
-const getBGColor = (id) => {
+const getBGColor = (id: number) => {
   const colors = [
     "red",
     "green",
@@ -16,7 +17,8 @@ const getBGColor = (id) => {
   ];
   return colors[id - 1] || colors[Math.floor(Math.random() * colors.length)];
 };
-const Playlist = ({ playlist }) => {
+
+const Playlist = ({ playlist }): JSX.Element => {
   const color = getBGColor(playlist.id);
   return (
     <GradientLayout
@@ -32,7 +34,10 @@ const Playlist = ({ playlist }) => {
   );
 };
 
-export const getServerSideProps = async ({ query, req }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  req,
+}) => {
   let user;
 
   try {

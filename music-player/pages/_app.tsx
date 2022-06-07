@@ -3,9 +3,10 @@ import { ChakraProvider } from "@chakra-ui/provider";
 import { StoreProvider, useStoreRehydrated } from "easy-peasy";
 import { extendTheme } from "@chakra-ui/react";
 import "reset-css";
+import React from "react";
 
 import PlayerLayout from "../components/playerLayout.jsx";
-import { store } from "../lib/store.js";
+import { store } from "../lib/store";
 
 const theme = extendTheme({
   colors: {
@@ -35,11 +36,19 @@ const theme = extendTheme({
   },
 });
 
-const WaitForStateRehydration = ({ children }) => {
+type AppProps = {
+  // Components: {
+  //   authPage: boolean;
+  // };
+  Component: React.FC<{ authPage: boolean }>;
+  pageProps: String;
+};
+const WaitForStateRehydration = ({ children }: any) => {
+  // console.log(children, typeof children);
   const isRehydrated = useStoreRehydrated();
   return isRehydrated ? children : null;
 };
-const MyApp = ({ Component, pageProps }) => {
+const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   return (
     <ChakraProvider theme={theme}>
       <StoreProvider store={store}>

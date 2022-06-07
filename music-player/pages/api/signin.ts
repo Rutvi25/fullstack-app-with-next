@@ -1,10 +1,15 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import cookie from "cookie";
-import prisma from "../../lib/prisma.js";
+import { NextApiRequest, NextApiResponse } from "next";
+import prisma from "../../lib/prisma";
+import { Auth } from "../../lib/mutations.js";
 
-export default async (req, res) => {
-  const { email, password } = req.body;
+export default async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
+  const { email, password }: Auth = req.body;
 
   const user = await prisma.user.findUnique({
     where: {
