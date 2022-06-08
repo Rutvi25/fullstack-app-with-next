@@ -1,4 +1,6 @@
-export default function fetcher(url, data = undefined) {
+import { User } from "../models";
+
+export default function fetcher(url: string, data: User) {
   return fetch(`${window.location.origin}/api${url}`, {
     method: data ? "POST" : "GET",
     credentials: "include",

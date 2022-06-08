@@ -1,6 +1,15 @@
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/react";
 
+interface AppProps {
+  color: string;
+  children: JSX.Element;
+  image: string;
+  subtitle: string;
+  title: string;
+  description: string;
+  roundImage: boolean;
+}
 const GradientLayout = ({
   color,
   children,
@@ -9,7 +18,7 @@ const GradientLayout = ({
   title,
   description,
   roundImage,
-}) => {
+}: AppProps): JSX.Element => {
   return (
     <Box
       height="100%"

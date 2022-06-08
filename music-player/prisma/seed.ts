@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
+import { User } from "../models.js";
 import { artistsData } from "./songsData.js";
 
 const prisma = new PrismaClient();
@@ -24,8 +25,8 @@ const run = async (): Promise<void> => {
     })
   );
 
-  const salt = bcrypt.genSaltSync();
-  const user = await prisma.user.upsert({
+  const salt: string = bcrypt.genSaltSync();
+  const user: User = await prisma.user.upsert({
     where: { email: "user@test.com" },
     update: {},
     create: {
@@ -61,6 +62,6 @@ run()
     console.error(e);
     process.exit(1);
   })
-  .finally(async () => {
+  .finally(async (): Promise<void> => {
     await prisma.$disconnect();
   });

@@ -1,37 +1,6 @@
-import { createStore, action, persist, Action } from "easy-peasy";
+import { createStore, action, persist } from "easy-peasy";
+import { StoreModel } from "../models";
 
-export interface Artist {
-  id: number;
-  name: string;
-}
-interface SongStates {
-  repeat: boolean;
-  playing: boolean;
-  shuffle: boolean;
-  index: number;
-  seek: number;
-}
-interface ActiveSong {
-  id: number;
-  artist: Artist;
-  artistId: number;
-  name: string;
-  url: string;
-  duration: number;
-}
-interface StoreModel {
-  activeSongs: ActiveSong[];
-  songStates: SongStates;
-  activeSong: ActiveSong | null;
-  changeActiveSongs: Action<StoreModel, ActiveSong[]>;
-  changeActiveSong: Action<StoreModel, ActiveSong>;
-  changePlayState: Action<StoreModel, SongStates["playing"]>;
-  changeRepeat: Action<StoreModel, SongStates["repeat"]>;
-  changeShuffle: Action<StoreModel, SongStates["shuffle"]>;
-  prevSong: Action<StoreModel, SongStates["index"]>;
-  nextSong: Action<StoreModel, SongStates["index"]>;
-  setSeek: Action<StoreModel, SongStates["seek"]>;
-}
 export const store = createStore(
   persist<StoreModel>({
     activeSongs: [],

@@ -1,19 +1,6 @@
 import useSWR from "swr";
+import { Playlists, User } from "../models";
 import fetcher from "./fetcher";
-
-export interface Playlists {
-  id: number;
-  name: string;
-  userId: number;
-}
-export interface User {
-  id?: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  playlistsCount?: number;
-}
 
 export const useMe = () => {
   const { data, error } = useSWR<User>("/me", fetcher);
@@ -26,7 +13,7 @@ export const useMe = () => {
 };
 
 export const usePlaylist = () => {
-  const { data, error } = useSWR<Playlists>("/playlist", fetcher);
+  const { data, error } = useSWR<Playlists[]>("/playlist", fetcher);
 
   return {
     playlists: data || [],

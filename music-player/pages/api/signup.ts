@@ -3,15 +3,14 @@ import jwt from "jsonwebtoken";
 import cookie from "cookie";
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../lib/prisma";
-import { Auth } from "../../lib/mutations.js";
-import { User } from "../../lib/hooks";
+import { User } from "../../models";
 
 export default async (
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<{ error: string } | User>
 ): Promise<void> => {
   const salt: string = bcrypt.genSaltSync();
-  const { email, password, firstName, lastName }: Auth = req.body;
+  const { email, password, firstName, lastName }: User = req.body;
 
   let user: User;
 
@@ -25,8 +24,7 @@ export default async (
       },
     });
   } catch (e) {
-    res.status(401);
-    res.json({ error: "User already exists" });
+    res.status(401).json({ error: "User already exists" });
     return;
   }
 

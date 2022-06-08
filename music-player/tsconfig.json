@@ -25,8 +25,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/**/*.tsx"
-, "prisma/seed.ts", "components/player.jsx", "components/authForm.jsx", "components/gradientLayout.jsx", "components/playerBar.jsx", "components/playerLayout.jsx", "components/sidebar.jsx", "components/songsTable.jsx", "lib/auth.js", "lib/fetcher.ts", "lib/formatters.ts", "lib/hooks.ts", "lib/mutations.ts", "lib/prisma.ts", "lib/store.ts", "pages/api/me.ts", "pages/api/playlist.ts", "pages/api/signin.ts", "pages/api/signup.ts", "pages/playlist/[id].tsx", "pages/_app.tsx", "pages/_middleware.tsx", "pages/index.jsx", "pages/signin.jsx", "pages/signup.tsx", "prisma/songsData.ts"  ],
+    "**/**/*.tsx"],
   "exclude": [
     "node_modules"
   ]

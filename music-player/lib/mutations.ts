@@ -1,11 +1,6 @@
-import fetcher from "./fetcher.js";
+import { User } from "../models";
+import fetcher from "./fetcher";
 
-export interface Auth {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
-export const auth = (mode: "signin" | "signup", body: Auth) => {
+export const auth = (mode: "signin" | "signup", body: User) => {
   return fetcher(`/${mode}`, body);
 };

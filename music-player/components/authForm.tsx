@@ -1,20 +1,25 @@
 import { Box, Flex, Input, Button } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { useState } from "react";
-// import { useSWRConfig } from "swr";
 import NextImage from "next/image";
 
 import { auth } from "../lib/mutations";
 
-const AuthForm = ({ mode, option }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setfirstName] = useState("");
-  const [lastName, setlastName] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+interface AppProps {
+  mode: "signin" | "signup";
+  option: "signin" | "signup";
+}
+const AuthForm = ({ mode, option }: AppProps): JSX.Element => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [firstName, setfirstName] = useState<string>("");
+  const [lastName, setlastName] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router: NextRouter = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: {
+    preventDefault: () => void;
+  }): Promise<void> => {
     e.preventDefault();
     setIsLoading(true);
     await auth(mode, { email, password, firstName, lastName });

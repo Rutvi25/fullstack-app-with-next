@@ -1,11 +1,11 @@
 import { GetServerSideProps } from "next";
-import GradientLayout from "../../components/gradientLayout.jsx";
-import SongsTable from "../../components/songsTable.jsx";
-import { validateToken } from "../../lib/auth.js";
+import GradientLayout from "../../components/gradientLayout";
+import SongsTable from "../../components/songsTable";
+import { validateToken } from "../../lib/auth";
 import prisma from "../../lib/prisma";
 
 const getBGColor = (id: number) => {
-  const colors = [
+  const colors: string[] = [
     "red",
     "green",
     "blue",
@@ -39,7 +39,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
 }) => {
   let user;
-
   try {
     user = validateToken(req.cookies.TRAX_ACCESS_TOKEN);
   } catch (e) {

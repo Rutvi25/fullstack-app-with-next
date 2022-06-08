@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../lib/prisma";
-import { validateRoute } from "../../lib/auth.js";
-import { Playlists } from "../../lib/hooks";
+import { validateRoute } from "../../lib/auth";
+import { Playlists } from "../../models";
 
 export default validateRoute(
   async (

@@ -1,6 +1,6 @@
 import NextImage from "next/image";
 import NextLink from "next/link";
-import { getCookies, removeCookies } from "cookies-next";
+import { removeCookies } from "cookies-next";
 import Router from "next/router";
 
 import {
@@ -20,9 +20,15 @@ import {
   MdFavorite,
 } from "react-icons/md";
 import { Button } from "@chakra-ui/react";
+import { IconType } from "react-icons";
 import { usePlaylist } from "../lib/hooks";
 
-const navMenu = [
+interface Menu {
+  name: string;
+  icon: IconType;
+  route: string;
+}
+const navMenu: Menu[] = [
   {
     name: "Home",
     icon: MdHome,
@@ -40,7 +46,7 @@ const navMenu = [
   },
 ];
 
-const musicMenu = [
+const musicMenu: Menu[] = [
   {
     name: "Create Playlist",
     icon: MdPlaylistAdd,
@@ -53,11 +59,11 @@ const musicMenu = [
   },
 ];
 
-const Sidebar = () => {
+const Sidebar = (): JSX.Element => {
   const { playlists } = usePlaylist();
-  const handleLogout = () => {
-    console.log("logout");
-    console.log(getCookies({ domain: "localhost", path: "/" }));
+  const handleLogout = (): void => {
+    // console.log("logout");
+    // console.log(getCookies({ domain: "localhost", path: "/" }));
     removeCookies("TRAX_ACCESS_TOKEN");
     Router.reload();
   };
@@ -132,7 +138,7 @@ const Sidebar = () => {
           }}
         >
           <List spacing={2}>
-          {console.log(playlists)}
+            {/* {console.log(playlists)} */}
             {playlists?.map((playlist) => (
               <ListItem paddingX="20px" key={playlist.id}>
                 <LinkBox>

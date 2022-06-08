@@ -1,10 +1,11 @@
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import { useStoreState } from "easy-peasy";
-import Player from "./player.jsx";
+import { StoreModel } from "../models";
+import Player from "./player";
 
-const PlayerBar = () => {
-  const songs = useStoreState((state) => state.activeSongs);
-  const activeSong = useStoreState((state) => state.activeSong);
+const PlayerBar = (): JSX.Element => {
+  const songs = useStoreState((state: StoreModel) => state.activeSongs);
+  const activeSong = useStoreState((state: StoreModel) => state.activeSong);
   return (
     <Box height="100%" width="100vw" padding="10px">
       <Flex align="center">

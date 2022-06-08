@@ -4,12 +4,20 @@ import { BsFillPlayFill } from "react-icons/bs";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { useStoreActions } from "easy-peasy";
 import { formatDate, formatTime } from "../lib/formatters";
+import { ActiveSong, StoreModel } from "../models";
 
-const SongsTable = ({ songs }) => {
-  const playSongs = useStoreActions((store) => store.changeActiveSongs);
-  const setActiveSong = useStoreActions((store) => store.changeActiveSong);
+interface AppProps {
+  songs: ActiveSong[];
+}
+const SongsTable = ({ songs }: AppProps): JSX.Element => {
+  const playSongs = useStoreActions<StoreModel>(
+    (store) => store.changeActiveSongs
+  );
+  const setActiveSong = useStoreActions<StoreModel>(
+    (store) => store.changeActiveSong
+  );
 
-  const handlePlay = (activeSong) => {
+  const handlePlay = (activeSong): void => {
     setActiveSong(activeSong || songs[0]);
     playSongs(songs);
   };
@@ -23,7 +31,7 @@ const SongsTable = ({ songs }) => {
             colorScheme="green"
             size="lg"
             isRound
-            onClick={() => handlePlay()}
+            onClick={(activeSong) => handlePlay(activeSong)}
           />
         </Box>
         <Table variant="unstyled">

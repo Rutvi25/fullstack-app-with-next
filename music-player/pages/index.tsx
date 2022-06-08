@@ -2,10 +2,10 @@ import { Box, Flex, Text } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/react";
 
 import { GetServerSideProps } from "next";
-import GradientLayout from "../components/gradientLayout.jsx";
+import GradientLayout from "../components/gradientLayout";
 import prisma from "../lib/prisma";
 import { useMe } from "../lib/hooks";
-import { Artist } from "../lib/store.js";
+import { Artist } from "../models";
 
 type AppProps = {
   artists: Artist[];

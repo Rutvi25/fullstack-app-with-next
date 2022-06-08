@@ -5,7 +5,7 @@ import { extendTheme } from "@chakra-ui/react";
 import "reset-css";
 import React from "react";
 
-import PlayerLayout from "../components/playerLayout.jsx";
+import PlayerLayout from "../components/playerLayout";
 import { store } from "../lib/store";
 
 const theme = extendTheme({
@@ -43,7 +43,11 @@ type AppProps = {
   Component: React.FC<{ authPage: boolean }>;
   pageProps: String;
 };
-const WaitForStateRehydration = ({ children }: any) => {
+const WaitForStateRehydration = ({
+  children,
+}: {
+  children: JSX.Element;
+}): JSX.Element => {
   // console.log(children, typeof children);
   const isRehydrated = useStoreRehydrated();
   return isRehydrated ? children : null;

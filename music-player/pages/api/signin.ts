@@ -3,13 +3,13 @@ import jwt from "jsonwebtoken";
 import cookie from "cookie";
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../lib/prisma";
-import { Auth } from "../../lib/mutations.js";
+import { User } from "../../models";
 
 export default async (
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<{ error: string } | User>
 ): Promise<void> => {
-  const { email, password }: Auth = req.body;
+  const { email, password }: User = req.body;
 
   const user = await prisma.user.findUnique({
     where: {
@@ -41,7 +41,6 @@ export default async (
 
     res.json(user);
   } else {
-    res.status(401);
-    res.json({ error: "Email or Password is wrong" });
+    res.status(401).json({ error: "Email or Password is wrong" });
   }
 };

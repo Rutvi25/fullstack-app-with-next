@@ -1,16 +1,17 @@
 import jwt from "jsonwebtoken";
-// import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
+import { User } from "../models";
 import prisma from "./prisma";
 
 export const validateRoute = (handler) => {
-  return async (req, res) => {
-    const token = req.cookies.TRAX_ACCESS_TOKEN;
+  return async (req: NextApiRequest, res: NextApiResponse) => {
+    const token: string = req.cookies.TRAX_ACCESS_TOKEN;
 
     if (token) {
-      let user;
-
+      let user: User;
       try {
-        const { id } = jwt.verify(token, "hello");
+        const { id } = <{ id: number }>jwt.verify(token, "hello");
+        // console.log(id, typeof id);
         user = await prisma.user.findUnique({
           where: { id },
         });
@@ -23,7 +24,6 @@ export const validateRoute = (handler) => {
         res.json({ error: "Not Authorizied" });
         return;
       }
-
       return handler(req, res, user);
     }
 
@@ -32,7 +32,8 @@ export const validateRoute = (handler) => {
   };
 };
 
-export const validateToken = (token) => {
+export const validateToken = (token: string) => {
   const user = jwt.verify(token, "hello");
+  // console.log(user);
   return user;
 };

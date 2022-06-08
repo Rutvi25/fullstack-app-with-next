@@ -20,34 +20,35 @@ import {
   MdOutlinePauseCircleFilled,
   MdOutlineRepeat,
 } from "react-icons/md";
-import { useStoreActions, useStoreState } from "easy-peasy";
+import { ActionCreator } from "easy-peasy";
 import { formatTime } from "../lib/formatters";
+import { StoreModel } from "../models";
+import { useStoreActions, useStoreState } from "../lib/typesHooks";
 
 const Player = ({ songs, activeSong }) => {
-  // const [playing, setPlaying] = useState(true);
-  const playing = useStoreState((state) => state.songStates.playing);
-  const setPlaying = useStoreActions((state) => state.changePlayState);
+  const playing: boolean = useStoreState(
+    (state: StoreModel) => state.songStates.playing
+  );
+  const setPlaying: ActionCreator<boolean> = useStoreActions(
+    (state) => state.changePlayState
+  );
   const setActiveSong = useStoreActions((state) => state.changeActiveSong);
   const setRepeat = useStoreActions((state) => state.changeRepeat);
-  const repeat = useStoreState((state) => state.songStates.repeat);
+  const repeat: boolean = useStoreState((state) => state.songStates.repeat);
   const setShuffle = useStoreActions((state) => state.changeShuffle);
-  const shuffle = useStoreState((state) => state.songStates.shuffle);
-  const index = useStoreState((state) => state.songStates.index);
+  const shuffle: boolean = useStoreState((state) => state.songStates.shuffle);
+  const index: number = useStoreState((state) => state.songStates.index);
   const prevSong = useStoreActions((state) => state.prevSong);
   const nextSong = useStoreActions((state) => state.nextSong);
-  // const [index, setIndex] = useState(0);
-  // const [seek, setSeek] = useState(0.0);
-  const seek = useStoreState((state) => state.songStates.seek);
+  const seek: number = useStoreState((state) => state.songStates.seek);
   const setSeek = useStoreActions((state) => state.setSeek);
   const [isSeeking, setIsSeeking] = useState(false);
-  // const [repeat, setRepeat] = useState(false);
-  // const [shuffle, setShuffle] = useState(false);
   const [duration, setDuration] = useState(0.0);
   const soundRef = useRef(null);
   const repeatRef = useRef(repeat);
 
   useEffect(() => {
-    let timerId;
+    let timerId: number;
     if (playing && !isSeeking) {
       const f = () => {
         setSeek(soundRef.current.seek());
@@ -67,17 +68,17 @@ const Player = ({ songs, activeSong }) => {
     repeatRef.current = repeat;
   }, [repeat]);
 
-  const setPlayState = (value) => {
+  const setPlayState = (value: boolean) => {
     setPlaying(value);
   };
   const onEnd = () => {
     if (repeatRef.current) {
-      console.log("repeat");
+      // console.log("repeat");
       setSeek(0);
       soundRef.current.seek(0);
     } else {
-      console.log("don't repeat");
-      nextSong();
+      // console.log("don't repeat");
+      nextSong(index);
     }
   };
   const onLoad = () => {
@@ -108,7 +109,7 @@ const Player = ({ songs, activeSong }) => {
             aria-label="shuffle"
             fontSize="24px"
             color={shuffle ? "white" : "gray.600"}
-            onClick={() => setShuffle()}
+            onClick={() => setShuffle(shuffle)}
             icon={<MdShuffle />}
           />
           <IconButton
@@ -153,7 +154,7 @@ const Player = ({ songs, activeSong }) => {
             variant="link"
             aria-label="repeat"
             color={repeat ? "white" : "gray.600"}
-            onClick={() => setRepeat()}
+            onClick={() => setRepeat(repeat)}
             fontSize="24px"
             icon={<MdOutlineRepeat />}
           />
@@ -171,7 +172,7 @@ const Player = ({ songs, activeSong }) => {
               step={0.1}
               min={0}
               id="player-range"
-              max={duration ? duration.toFixed(2) : 0}
+              maxW={duration ? duration.toFixed(2) : 0}
               onChange={onSeek}
               value={[seek]}
               onChangeStart={() => setIsSeeking(true)}
