@@ -35,24 +35,11 @@ const theme = extendTheme({
     },
   },
 });
-
-type AppProps = {
-  // Components: {
-  //   authPage: boolean;
-  // };
-  Component: React.FC<{ authPage: boolean }>;
-  pageProps: String;
-};
-const WaitForStateRehydration = ({
-  children,
-}: {
-  children: JSX.Element;
-}): JSX.Element => {
-  // console.log(children, typeof children);
+const WaitForStateRehydration = ({ children }) => {
   const isRehydrated = useStoreRehydrated();
   return isRehydrated ? children : null;
 };
-const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
+const MyApp = ({ Component, pageProps }) => {
   return (
     <ChakraProvider theme={theme}>
       <StoreProvider store={store}>
