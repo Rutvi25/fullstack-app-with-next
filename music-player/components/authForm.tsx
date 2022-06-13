@@ -37,6 +37,9 @@ const AuthForm = ({ mode, option }: AppProps): JSX.Element => {
       >
         <NextImage src="/logo.svg" height={60} width={120} />
       </Flex>
+      <Flex justify="center" align="center" fontSize="20px">
+        <h1>{mode}</h1>
+      </Flex>
       <Flex justify="center" align="center" height="calc(100vh - 100px)">
         <Box padding="50px" bg="gray.900" borderRadius="6px">
           <form onSubmit={handleSubmit}>
@@ -85,6 +88,7 @@ const AuthForm = ({ mode, option }: AppProps): JSX.Element => {
             </Button>
           </form>
         </Box>
+        {}
       </Flex>
     </Box>
   );

@@ -1,4 +1,23 @@
 {
-  "presets": ["next/babel"],
-  "plugins": ["superjson-next"]
+  "presets": ["next/babel",
+    "@babel/preset-env"
+  ],
+  "plugins": ["superjson-next", "@babel/plugin-transform-runtime"],
+  "targets": {
+    "node": "current"
+  }
 }
+
+
+// module.exports = {
+//   presets: [
+//     "next/babel",
+//     "@babel/preset-env",
+//     {
+//       targets: {
+//         node: "current"
+//       }
+//     }
+//   ],
+//   plugins: ["superjson-next"]
+// }

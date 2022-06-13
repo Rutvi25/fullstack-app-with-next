@@ -3,6 +3,7 @@ import GradientLayout from "../../components/gradientLayout";
 import SongsTable from "../../components/songsTable";
 import { validateToken } from "../../lib/auth";
 import prisma from "../../lib/prisma";
+import "regenerator-runtime/runtime";
 
 const getBGColor = (id: number) => {
   const colors: string[] = [

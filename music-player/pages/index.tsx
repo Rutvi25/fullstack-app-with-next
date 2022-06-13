@@ -30,7 +30,7 @@ const Home = ({ artists }: AppProps): JSX.Element => {
           <Text fontSize="md">Only visible to you</Text>
         </Box>
         <Flex justify="space-between">
-          {artists.map((artist: { id: number; name: string }) => (
+          {(artists || []).map((artist: { id: number; name: string }) => (
             <Box paddingX="10px" width="20%">
               <Box bg="gray.900" borderRadius="4px" padding="15px">
                 <Image
