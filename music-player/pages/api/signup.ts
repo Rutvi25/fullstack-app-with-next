@@ -5,10 +5,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../lib/prisma";
 import { User } from "../../models";
 
-export default async (
+export default async function signup(
   req: NextApiRequest,
   res: NextApiResponse<{ error: string } | User>
-): Promise<void> => {
+): Promise<void> {
   const salt: string = bcrypt.genSaltSync();
   const { email, password, firstName, lastName }: User = req.body;
 
@@ -48,4 +48,4 @@ export default async (
   );
 
   res.json(user);
-};
+}

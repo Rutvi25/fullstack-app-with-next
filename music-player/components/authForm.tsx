@@ -88,7 +88,6 @@ const AuthForm = ({ mode, option }: AppProps): JSX.Element => {
             </Button>
           </form>
         </Box>
-        {}
       </Flex>
     </Box>
   );

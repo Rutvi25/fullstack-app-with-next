@@ -5,10 +5,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../lib/prisma";
 import { User } from "../../models";
 
-export default async (
+export default async function signin(
   req: NextApiRequest,
   res: NextApiResponse<{ error: string } | User>
-): Promise<void> => {
+): Promise<void> {
   const { email, password }: User = req.body;
 
   const user = await prisma.user.findUnique({
@@ -16,7 +16,6 @@ export default async (
       email,
     },
   });
-
   if (user && bcrypt.compareSync(password, user.password)) {
     const token = jwt.sign(
       {
@@ -29,7 +28,6 @@ export default async (
         expiresIn: "8h",
       }
     );
-
     res.setHeader(
       "Set-Cookie",
       cookie.serialize("TRAX_ACCESS_TOKEN", token, {
@@ -43,4 +41,4 @@ export default async (
   } else {
     res.status(401).json({ error: "Email or Password is wrong" });
   }
-};
+}

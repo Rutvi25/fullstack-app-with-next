@@ -1,20 +1,55 @@
 import "@testing-library/jest-dom";
+import "whatwg-fetch";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { RouterContext } from "next/dist/shared/lib/router-context";
+import { ChakraProvider } from "@chakra-ui/react";
+import { renderHook } from "@testing-library/react-hooks";
+import FetchMock from "jest-fetch-mock";
 import { createMockRouter } from "../createMockRouter";
-// import Home from "../pages/index";
+import Home from "../pages/index";
 import Signup from "../pages/signup";
 import Signin from "../pages/signin";
-// import AuthForm from "../components/authForm";
+import Sidebar from "../components/sidebar";
 
-// describe("Home Page", () => {
-//   it("should render", () => {
-//     render(<Home />);
-//     const home = screen.getByRole("GradientLayout");
-//     expect(home).toBeInTheDocument();
-//   });
-// });
+import { useMe, usePlaylist } from "../lib/hooks";
 
+describe("api testing", () => {
+  it("should fetch loggedin user data", async () => {
+    console.warn(await fetch("http://localhost:3000/api/me"));
+  });
+});
+
+describe("Test the useSWR hooks", () => {
+  it("type of output should be object", () => {
+    const { result } = renderHook(() => usePlaylist());
+    expect(typeof result).toBe("object");
+  });
+
+  it("should render playlists hook", async () => {
+    const { result } = renderHook(() => usePlaylist());
+    expect(result.playlists).toBeUndefined();
+  });
+  it("should render playlists hook", async () => {
+    const { result, waitForNextUpdate } = renderHook(() => useMe());
+    expect(result.user).toBeUndefined();
+    await waitForNextUpdate();
+    expect(result.user).toBeUndefined();
+  });
+});
+
+describe("Home Page", () => {
+  it("should render", () => {
+    render(
+      <ChakraProvider>
+        <Home />
+      </ChakraProvider>
+    );
+    const image = screen.getByRole("img");
+    expect(image).toBeInTheDocument();
+  });
+});
+
+// for signup/signin form
 describe("Signup Form", () => {
   it("render 2 input components for signin", () => {
     const { getByPlaceholderText } = render(<Signin />);
@@ -48,35 +83,22 @@ describe("Signup Form", () => {
     const router = createMockRouter({ route: "signup" });
     render(
       <RouterContext.Provider value={router}>
-        <Signin />
+        <Signup />
       </RouterContext.Provider>
     );
-    fireEvent.click(screen.getByRole("button", { name: "signup" }));
-    expect(router.push).toHaveBeenCalledWith("/signup");
+    fireEvent.click(screen.getByRole("button", { name: "signin" }));
+    expect(router.push).toHaveBeenCalledWith("/signin");
   });
 });
 
-// describe("Authenticate route", () => {
-//   let req;
-//   let res;
-//   beforeEach(() => {
-//     req = {};
-//     res = {
-//       status: jest.fn(() => res),
-//       end: jest.fn(),
-//     };
-//   });
-//   it("Should return 405 if the method is not post", async () => {
-//     req.Method = "GET";
-//     const response = await signup(req, res);
-//     expect(res.status).toBeCalledWith(401);
-//     // fail("not implemented");
-//   });
-// });
-// describe("authentication", () => {
-//   it("renders the auth page", () => {
-//     <AuthForm />;
-//     const button = screen.getByText("button", { name: "signin" });
-//     expect(button).toBeInTheDocument();
-//   });
-// });
+describe("SideBar", () => {
+  it("should render logout button", () => {
+    render(<Sidebar />);
+    const logout = screen.getByRole("button", { name: "Logout" });
+    expect(logout).toBeInTheDocument();
+  });
+  it("renders Menu in sidebar component", () => {
+    render(<Sidebar />);
+    expect(screen.getByText("Home").closest("a")).toHaveAttribute("href", "/");
+  });
+});

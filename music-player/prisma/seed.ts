@@ -4,7 +4,7 @@ import { User } from "../models";
 import { artistsData } from "./songsData";
 
 const prisma = new PrismaClient();
-
+export default prisma;
 const run = async (): Promise<void> => {
   await Promise.all(
     artistsData.map(async (artist) => {

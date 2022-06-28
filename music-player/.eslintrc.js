@@ -42,6 +42,7 @@ module.exports = {
         tsx: "never",
       },
     ],
+    "no-use-before-define": ["error", { variables: false }],
     "consistent-return": "off",
     "arrow-body-style": "off",
     "prefer-arrow-callback": "off",
@@ -54,5 +55,6 @@ module.exports = {
       },
     ],
     "prettier/prettier": "warn",
+    "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
   },
 };
