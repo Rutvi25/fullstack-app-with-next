@@ -1,6 +1,6 @@
 {
   "presets": ["next/babel",
-    "@babel/preset-env"
+    "@babel/preset-env",
   ],
   "plugins": ["superjson-next", "@babel/plugin-transform-runtime"],
   "targets": {

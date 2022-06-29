@@ -12,7 +12,7 @@ type AppProps = {
 };
 const Home = ({ artists }: AppProps): JSX.Element => {
   const { user } = useMe();
-  // console.log(user)
+  console.log(user)
   return (
     <GradientLayout
       color="gray"
