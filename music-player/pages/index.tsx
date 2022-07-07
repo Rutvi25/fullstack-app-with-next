@@ -7,6 +7,7 @@ import prisma from "../lib/prisma";
 import { useMe } from "../lib/hooks";
 import { Artist } from "../models";
 
+
 type AppProps = {
   artists: Artist[];
 };
